@@ -36,15 +36,22 @@ function game() {
         let user = prompt("Rock paper or scissors?")
         let computer = getComputerChoice()
         let res = playRound(user, computer)
-        switch (res[0]) {
-            case 1:
-                ++playerScore
-            case 0:
+        // switch (res[0]) {
+        //     case 1:
+        //         playerScore++
+        //     case 0:
                 
-            case -1:
-                ++computerScore
+        //     case -1:
+        //         computerScore++
 
+        // }
+        let change = res[0]
+        if (change===1){
+            playerScore++
+        } else if (change ===-1){
+            computerScore++
         }
+
         console.log(res[1])
         console.log(`Player:${playerScore} \nComputer:${computerScore}`)
 
