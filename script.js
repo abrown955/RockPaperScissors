@@ -27,33 +27,42 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
-
-function game() {
-
-    let playerScore = 0;
-    let computerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        let user = prompt("Rock paper or scissors?")
-        let computer = getComputerChoice()
-        let res = playRound(user, computer)
-
-        let change = res[0]
-        if (change===1){
-            playerScore++
-        } else if (change ===-1){
-            computerScore++
-        }
-
+buttons = document.querySelectorAll("button")
+console.log(buttons)
+buttons.forEach((btn) => {
+    let choice = btn.getAttribute('data-choice')
+    // btn.addEventListener("onClick",console.log("yes"))    
+    btn.addEventListener("click",e => {
+        res = playRound(choice,getComputerChoice())
         console.log(res[1])
-        console.log(`Player:${playerScore} \nComputer:${computerScore}`)
+    })
+});
+// function game() {
 
-    }
-    if (playerScore>computerScore){
-        console.log('player won')
-    } else{
-        console.log('you did not win')
-    }
+//     let playerScore = 0;
+//     let computerScore = 0;
+//     for (let i = 0; i < 5; i++) {
+//         let user = prompt("Rock paper or scissors?")
+//         let computer = getComputerChoice()
+//         let res = playRound(user, computer)
+
+//         let change = res[0]
+//         if (change===1){
+//             playerScore++
+//         } else if (change ===-1){
+//             computerScore++
+//         }
+
+//         console.log(res[1])
+//         console.log(`Player:${playerScore} \nComputer:${computerScore}`)
+
+//     }
+//     if (playerScore>computerScore){
+//         console.log('player won')
+//     } else{
+//         console.log('you did not win')
+//     }
 
 
-}
-game()
+// }
+// game()
