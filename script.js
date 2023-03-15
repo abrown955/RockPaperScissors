@@ -1,4 +1,8 @@
 const choices = ["ROCK", "PAPER", "SCISSORS"]
+let gameHistory=[]
+let playerScore=0
+let computerScore=0
+
 function getComputerChoice() {
     let num = Math.floor(Math.random() * (3))
     return choices[num]
@@ -27,42 +31,48 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
+function handleGame (game){
+    gameHistory.push(game[1])
+    let outcome = game[0]
+    if (outcome===1){
+        playerScore++;
+
+    } 
+    else if (outcome===-1){
+        computerScore++;
+    }
+}
+
+function renderScore(playerScore,computerScore){
+    let player = document.querySelector("body > div.scores > div:nth-child(1) > div")
+    let computer = document.querySelector("body > div.scores > div:nth-child(2) > div")
+
+    player.innerText = playerScore
+    computer.innerText = computerScore
+
+}
+
 buttons = document.querySelectorAll("button")
 console.log(buttons)
 buttons.forEach((btn) => {
     let choice = btn.getAttribute('data-choice')
-    // btn.addEventListener("onClick",console.log("yes"))    
-    btn.addEventListener("click",e => {
+    btn.addEventListener("click", e => {
         res = playRound(choice,getComputerChoice())
-        console.log(res[1])
+        
+        let outcome = res[0]
+        if (outcome===1){
+            playerScore++;
+    
+        } 
+        else if (outcome===-1){
+            computerScore++;
+        }
+        renderScore(playerScore,computerScore)
     })
 });
-// function game() {
-
-//     let playerScore = 0;
-//     let computerScore = 0;
-//     for (let i = 0; i < 5; i++) {
-//         let user = prompt("Rock paper or scissors?")
-//         let computer = getComputerChoice()
-//         let res = playRound(user, computer)
-
-//         let change = res[0]
-//         if (change===1){
-//             playerScore++
-//         } else if (change ===-1){
-//             computerScore++
-//         }
-
-//         console.log(res[1])
-//         console.log(`Player:${playerScore} \nComputer:${computerScore}`)
-
-//     }
-//     if (playerScore>computerScore){
-//         console.log('player won')
-//     } else{
-//         console.log('you did not win')
-//     }
 
 
-// }
-// game()
+
+
+
+
