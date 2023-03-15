@@ -21,7 +21,7 @@ function playRound(playerSelection, computerSelection) {
     else if (player === computerSelection) {
         return [0, `Tie! Both players chose ${computerSelection}`]
     }
-
+    //player wins
     else if (computerSelection === "ROCK" && player === "PAPER"
         || computerSelection === "SCISSORS" && player === "ROCK"
         || computerSelection === "PAPER" && player === "SCISSORS") {
@@ -29,18 +29,6 @@ function playRound(playerSelection, computerSelection) {
     }
 
 
-}
-
-function handleGame (game){
-    gameHistory.push(game[1])
-    let outcome = game[0]
-    if (outcome===1){
-        playerScore++;
-
-    } 
-    else if (outcome===-1){
-        computerScore++;
-    }
 }
 
 function renderScore(playerScore,computerScore){
@@ -52,14 +40,40 @@ function renderScore(playerScore,computerScore){
 
 }
 
+function checkWin(playerScore,computerScore){
+    if (playerScore >= 5 || computerScore >= 5){
+        let text = document.querySelector("body > div.winnerText")
+        let winner = ""
+        if (playerScore>=5){
+            winner = "player wins"
+        }
+        else if (computerScore >=5){
+            winner = "computer wins"
+        }
+
+        text.innerText = winner
+    }
+}
+
+function updateHistory(e){
+    let content = document.querySelector("body > div:nth-child(4) > div")
+    let text = document.createElement('div')
+    text.innerHTML = e 
+    content.appendChild(text)
+}
+
 buttons = document.querySelectorAll("button")
 console.log(buttons)
 buttons.forEach((btn) => {
     let choice = btn.getAttribute('data-choice')
     btn.addEventListener("click", e => {
-        res = playRound(choice,getComputerChoice())
         
+        res = playRound(choice,getComputerChoice())
         let outcome = res[0]
+        let log = res[1]
+
+        gameHistory.push(log)
+
         if (outcome===1){
             playerScore++;
     
@@ -67,7 +81,10 @@ buttons.forEach((btn) => {
         else if (outcome===-1){
             computerScore++;
         }
+        
         renderScore(playerScore,computerScore)
+        updateHistory(log)
+        checkWin(playerScore,computerScore)
     })
 });
 
